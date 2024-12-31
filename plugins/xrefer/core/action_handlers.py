@@ -84,7 +84,9 @@ class ArtifactAnalysisHandler(idaapi.action_handler_t):
         try:
             idaapi.show_wait_box(f'HIDECANCEL\n')
             log("Running artifact analysis...")
-            plugin_instance.xrefer_view.xrefer_obj.find_interesting_artifacts()
+            xrefer_obj = plugin_instance.xrefer_view.xrefer_obj
+            xrefer_obj.find_interesting_artifacts()
+            xrefer_obj.save_analysis()
             
             # Force view update
             current_state = plugin_instance.xrefer_view.state_machine.current_state
@@ -321,7 +323,7 @@ class AboutDialogHandler(idaapi.action_handler_t):
         layout.addWidget(title_label)
         
         # Add version
-        version_label = QtWidgets.QLabel("Version 1.0.1")
+        version_label = QtWidgets.QLabel("Version 1.0.2")
         version_font = version_label.font()
         version_font.setPointSize(9)
         version_label.setFont(version_font)
